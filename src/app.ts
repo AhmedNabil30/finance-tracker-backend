@@ -25,7 +25,13 @@ const startServer = async () => {
         const app: Application = express();
 
         // Middleware
-        app.use(cors());
+        app.use(cors({
+          origin: [
+            'https://your-frontend-vercel-url.vercel.app',
+            'http://localhost:4200' // For local development
+          ],
+          credentials: true
+        }));
         app.use(express.json());
 
         // Routes registration

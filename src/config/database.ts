@@ -9,14 +9,13 @@ dotenv.config();
 // Create our database connection configuration
 export const AppDataSource = new DataSource({
   type: 'postgres',
-  host: process.env.DB_HOST || 'localhost',
-  port: parseInt(process.env.DB_PORT || '5432'),
-  username: process.env.DB_USER || 'postgres',
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME || 'finance_tracker',
-  entities: [User, Transaction],  // Add Transaction entity here
+  url: "postgresql://postgres:123456@db.hnnbebbjzfdsljyvkfeq.supabase.co:5432/postgres", // Use connection string directly
+  ssl: { 
+    rejectUnauthorized: false // Important for most free databases
+  },
+  entities: [User, Transaction],
   synchronize: true,
-  logging: true
+  logging: process.env.NODE_ENV === 'development'
 });
 
 // This function initializes our database connection
